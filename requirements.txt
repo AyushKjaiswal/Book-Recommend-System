@@ -1,0 +1,11 @@
+flasgger==0.9.7.1
+Flask==3.0.3
+flask_sqlalchemy==3.1.1
+langchain==0.2.6
+langchain_community==0.2.6
+pandas==2.2.2
+PyPDF2==3.0.1
+python-dotenv==1.0.1
+scikit_learn==1.5.1
+SQLAlchemy==2.0.31
+Werkzeug==3.0.3

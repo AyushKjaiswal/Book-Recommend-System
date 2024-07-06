@@ -1,0 +1,191 @@
+swagger: '2.0'
+info:
+  title: Bookstore API
+  description: API for managing a bookstore
+  version: 1.0.0
+host: localhost:5000
+basePath: /
+schemes:
+  - http
+paths:
+  /books:
+    get:
+      summary: Retrieve all books
+      responses:
+        200:
+          description: A list of books
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+    post:
+      summary: Add a new book
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/BookInput'
+      responses:
+        201:
+          description: Book added successfully
+  /books/{book_id}:
+    get:
+      summary: Retrieve a book by ID
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: A book
+          schema:
+            $ref: '#/definitions/Book'
+    put:
+      summary: Update a book by ID
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          type: integer
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/BookInput'
+      responses:
+        200:
+          description: Book updated successfully
+    delete:
+      summary: Delete a book by ID
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Book deleted successfully
+  /books/{book_id}/reviews:
+    get:
+      summary: Retrieve all reviews for a book
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: A list of reviews
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Review'
+  /books/{book_id}/summary:
+    get:
+      summary: Get a summary and aggregated rating for a book
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: A summary and average rating
+          schema:
+            $ref: '#/definitions/BookSummary'
+  /reviews:
+    post:
+      summary: Add a new review
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ReviewInput'
+      responses:
+        201:
+          description: Review added successfully
+  /books/{id}/summary:
+  put:
+    summary: Update summary of a book
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+      - in: body
+        name: body
+        schema:
+          type: object
+          properties:
+            summary:
+              type: string
+    responses:
+      '200':
+        description: Summary updated successfully
+      '400':
+        description: Summary is required
+      '404':
+        description: Book not found
+# definitions:
+  # Book:
+  #   type: object
+  #   properties:
+  #     id:
+  #       type: integer
+  #     title:
+  #       type: string
+  #     author:
+  #       type: string
+  #     genre:
+  #       type: string
+  #     year_published:
+  #       type: integer
+  #     summary:
+  #       type: string
+  # BookInput:
+  #   type: object
+  #   properties:
+  #     title:
+  #       type: string
+  #     author:
+  #       type: string
+  #     genre:
+  #       type: string
+  #     year_published:
+  #       type: integer
+  #     summary:
+  #       type: string
+  # Review:
+  #   type: object
+  #   properties:
+  #     id:
+  #       type: integer
+  #     book_id:
+  #       type: integer
+  #     user_id:
+  #       type: integer
+  #     review_text:
+  #       type: string
+  #     rating:
+  #       type: integer
+  # ReviewInput:
+  #   type: object
+  #   properties:
+  #     book_id:
+  #       type: integer
+  #     user_id:
+  #       type: integer
+  #     review_text:
+  #       type: string
+  #     rating:
+  #       type: integer
+  # BookSummary:
+  #   type: object
+  #   properties:
+  #     summary:
+  #       type: string
+  #     average_rating:
+  #       type: number
